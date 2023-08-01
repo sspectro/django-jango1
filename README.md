@@ -1,8 +1,8 @@
 # Django Framework Básico - django1
 
->Desenvolvimento Web com Python e Django Framework. 
+>Desenvolvimento Web com Python e Django Framework.
 > 
->>Geek University - Udemy[Programação Web com Python e Django Framework: Essencial](https://www.udemy.com/course/programacao-web-com-django-framework-do-basico-ao-avancado/)
+>>Projeto desenvolvido no curso da Geek University - Udemy [Programação Web com Python e Django Framework: Essencial](https://www.udemy.com/course/programacao-web-com-django-framework-do-basico-ao-avancado/)
 
 ## Ambiente de Desenvolvimento
 Linux
