@@ -11,25 +11,25 @@ Linux
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    1. Criar repositório no github
-    2. Criar README básico
-    3. Criar e ativar ambiente virtual
+    - Criar repositório no github
+    - Criar README básico
+    - Criar e ativar ambiente virtual
         ```sh
         python3 -m venv myenv
         source venv/bin/activate
         ```
-    4. Instalação pip - se necessario
+    - Instalação pip - se necessario
         ```sh
         sudo apt update
         sudo apt install python3-pip
         pip3 --version
         ```
-    5. Instalação Django
+    - Instalação Django
         ```sh
         sudo apt update
         pip3 install django
         ```
-    6. Criação arquivo requirements
+    - Criação arquivo requirements
     Contém informaçẽos sobre todas as bibliotecas utilizadas no projeto. Para atualizar o arquivo, basta executar o comando novamente após instalar outras bibliotecas.
         ```sh
         pip freeze > requirements.txt
@@ -108,7 +108,7 @@ Linux
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
-    1. Criação dos métodos em `views.py`
+    - Criação dos métodos em `views.py`
         ```python
         from django.shortcuts import render
 
@@ -120,7 +120,7 @@ Linux
         def contato(request):
             return render(request, 'contato.html')
         ```
-    2. Adicionar arquivo `core/urls.py` em app core com as rotas
+    - Adicionar arquivo `core/urls.py` em app core com as rotas
         Arquivo com as rotas referentes aos templates do app `core`
         ```python
         from django.urls import path
@@ -132,7 +132,7 @@ Linux
             path('contato', contato)
         ]
         ```
-    3. Configurar rota para aquivo de rotas  `core/urls.py` de app core
+    - Configurar rota para aquivo de rotas  `core/urls.py` de app core
         Indica que a rota raiz aponta para o arquivo de `core.urls.py`
         ```python
         from django.contrib import admin
@@ -143,8 +143,8 @@ Linux
             path('', include('core.urls'))
         ]
         ```
-    4. Criar diretório `core/templates` em app core
-    5. Criar templates
+    - Criar diretório `core/templates` em app core
+    - Criar templates
         `templates/index.html`
         ```html
         <!DOCTYPE html>
@@ -173,11 +173,72 @@ Linux
         </body>
         </html>
         ```
-    6. Testar
+    - Testar
         ```sh
         python3 manage.py runserver
         ```
 
+    </p>
+
+    </details> 
+
+    ---
+
+5. <span style="color:383E42"><b>Passando parâmetro para o template `index.html`</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    Em `views.py`
+    ```python
+    def index(request):
+    context = {
+        'curso': 'Programação Web com Django Framework',
+        'outro': 'Programação Web com Django Framework'
+    }
+    return render(request, 'index.html',context)
+    ```
+
+    Em `index.html`
+    ```html
+    <body>
+    <h1>Index</h1>
+    <h2>{{curso}}</h2>
+    <p>{{outro}}</p>
+    </body>
+    ```
+    </p>
+
+    </details> 
+
+    ---
+
+6. <span style="color:383E42"><b>Models - Primeiros modelos</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    - Criar modelo/classe `Produto` e `Cliente` em `core/models`
+        ```python
+        from django.db import models
+
+        class Produto(models.Model):
+            nome = models.CharField('Nome', max_length=100)
+            preco = models.DecimalField('Preco', decimal_places=2, max_digits=8)
+            estoque = models.IntegerField('Quantidade em Estoque')
+
+        class Cliente(models.Model):
+            nome = models.CharField('Nome', max_length=100)
+            sobrenome = models.CharField('Sobrenome', max_length=100)
+            email = models.EmailField('Email', max_length=100)
+        ```
+    - Gerando migrations
+        ```sh
+        python3 manage.py makemigrations
+        ```
+    - Executando as migrations - Cria as tabelas no banco de dados
+        ```sh
+        python3 manage.py migrate
+        ```
+    
     </p>
 
     </details> 
