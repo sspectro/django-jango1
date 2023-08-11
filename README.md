@@ -90,6 +90,9 @@ Linux
 
     ---
 3. <span style="color:383E42"><b>Definindo timezone</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
     Em `settings.py`
     ```python
     # Internationalization
@@ -104,6 +107,12 @@ Linux
     USE_TZ = True
 
     ```
+
+    </p>
+
+    </details> 
+
+    ---
 4. <span style="color:383E42"><b>Primeiras views, templates e arquivo de rotas</b></span>
     <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
@@ -230,15 +239,90 @@ Linux
             sobrenome = models.CharField('Sobrenome', max_length=100)
             email = models.EmailField('Email', max_length=100)
         ```
+
     - Gerando migrations
         ```sh
         python3 manage.py makemigrations
         ```
+
     - Executando as migrations - Cria as tabelas no banco de dados
         ```sh
         python3 manage.py migrate
         ```
+
+    - Testar
+        ```sh
+        python3 manage.py runserver
+        ```
+    </p>
+
+    </details> 
+
+    ---
+
+7. <span style="color:383E42"><b>Área administrativa</b></span>
+    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <p>
+
+    - Criando super usuário
+        Podemos criar vários super usuários, caso precise
+        ```sh
+        python3 manage.py createsuperuser
+        ```
     
+    - Incluir modelos ao `core/admin.py`
+        Para que seja exibido no painel admin da aplicação
+        ```python
+        from django.contrib import admin
+
+        from .models import Produto, Cliente
+
+        admin.site.register(Produto)
+        admin.site.register(Cliente)
+        ```
+
+    - Inserir alguns produtos via painel admin
+        Usar usuário e senha criado em passo anterior `http://127.0.0.1:8000/admin/`
+    <br>
+    - Definir o método `__str__` para os modelos criados
+        Representação do objeto em um formato de string - Neste caso retorna apenas o valor da variável nome e no outro nome e sobrenome
+        ```python
+        from django.db import models
+
+        class Produto(models.Model):
+            nome = models.CharField('Nome', max_length=100)
+            preco = models.DecimalField('Preco', decimal_places=2, max_digits=8)
+            estoque = models.IntegerField('Quantidade em Estoque')
+
+            def __str__(self) -> str:
+                return self.nome
+
+        class Cliente(models.Model):
+            nome = models.CharField('Nome', max_length=100)
+            sobrenome = models.CharField('Sobrenome', max_length=100)
+            email = models.EmailField('Email', max_length=100)
+            
+            def __str__(self) -> str:
+                return f'{self.nome} {self.sobrenome}'
+        ```
+    - Testar: Verificar resultado via painel admin
+    <br>
+    - Criar classes em core/admin.py que extendem modelAdmin
+        Permite configurar exibição no painel admin, como quais colunas deseja exibir
+        ```python
+        from django.contrib import admin
+
+        from .models import Produto, Cliente
+
+        class ProdutoAdmin(admin.ModelAdmin):
+            list_display = ('nome', 'preco', 'estoque')
+
+        class ClienteAdmin(admin.ModelAdmin):
+            list_display = ('nome', 'sobrenome', 'email')
+
+        admin.site.register(Produto, ProdutoAdmin)
+        admin.site.register(Cliente, ClienteAdmin)
+        ```
     </p>
 
     </details> 
