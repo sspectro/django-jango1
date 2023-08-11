@@ -284,6 +284,7 @@ Linux
     - Inserir alguns produtos via painel admin
         Usar usuário e senha criado em passo anterior `http://127.0.0.1:8000/admin/`
     <br>
+
     - Definir o método `__str__` para os modelos criados
         Representação do objeto em um formato de string - Neste caso retorna apenas o valor da variável nome e no outro nome e sobrenome
         ```python
@@ -307,6 +308,7 @@ Linux
         ```
     - Testar: Verificar resultado via painel admin
     <br>
+    
     - Criar classes em core/admin.py que extendem modelAdmin
         Permite configurar exibição no painel admin, como quais colunas deseja exibir
         ```python
