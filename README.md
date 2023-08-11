@@ -261,7 +261,7 @@ Linux
     ---
 
 7. <span style="color:383E42"><b>Área administrativa</b></span>
-    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
     - Criando super usuário
