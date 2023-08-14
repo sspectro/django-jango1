@@ -308,7 +308,7 @@ Linux
         ```
     - Testar: Verificar resultado via painel admin
     <br>
-    
+
     - Criar classes em core/admin.py que extendem modelAdmin
         Permite configurar exibição no painel admin, como quais colunas deseja exibir
         ```python
@@ -325,9 +325,46 @@ Linux
         admin.site.register(Produto, ProdutoAdmin)
         admin.site.register(Cliente, ClienteAdmin)
         ```
+    
+    - Testar
     </p>
 
     </details> 
+
+    ---
+
+8. <span style="color:383E42"><b>Django Shell e Python Console</b></span>
+    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <p>
+
+    - Detalhes sobre o comando `manage.py`
+        Listagem de comandos disponíveis
+        ```sh
+        python manage.py
+        ```
+    - Detalhes sobre o comando `manage.py` - `help`
+        ```sh
+        python manage.py help makemigrations
+        ```
+    - Console Python
+        ```sh
+        python manage.py shell
+        ```
+        Manipula objeto
+        ```sh
+        from core.models import Produto
+
+        #Adicionar produto
+        produto = Produto(nome="Atari 2600", preco=199,67, estoque=100)
+        produto.save()
+
+        # Visualizar propriedades e métdos do objeto
+        dir(produto)
+        produto.id
+        ```
+    </p>
+
+    </details>
 
     ---
 
