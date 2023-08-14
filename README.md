@@ -334,7 +334,7 @@ Linux
     ---
 
 8. <span style="color:383E42"><b>Django Shell e Python Console</b></span>
-    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
     - Detalhes sobre o comando `manage.py`
@@ -362,6 +362,105 @@ Linux
         dir(produto)
         produto.id
         ```
+    </p>
+
+    </details>
+
+    ---
+
+9. <span style="color:383E42"><b>Dados do banco de dados no Template</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    - Incluir rota para página/template `core/templates/produto.html`.
+    ```python
+    # Inclui nome para rota - nome que será usado ao criar url na página - pode gerar erro, caso não defina o parâmetro name
+    path('produto/<int:pk>', produto, name='produto'), 
+    ```
+
+    - Cria lista de produtos e inclui no contexto para enviar ao template
+        ```python
+        from django.shortcuts import render
+        from core.models import Produto
+
+
+        def index(request):
+            produtos = Produto.objects.all()
+            context = {
+                'curso': 'Programação Web com Django Framework',
+                'outro': 'Programação Web com Django Framework',
+                'produtos': produtos
+            }
+            return render(request, 'index.html',context)
+        ```
+
+    - Tabela para exibir lista de produtos no `core/templates/index.html`
+        Cria `url` para produto com base no nome definido no arquivo de rotas `urls.py` com parâmetro id
+        ```html
+        <table>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produto in produtos %}
+            <tr>
+                <td><a href="{% url 'produto' produto.id %}">{{ produto.nome }}</a></td>
+                <td>{{ produto.preco }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        ```
+
+    - Criar template `core/templates/produto.html`
+        Inclui url para retorno `core/templates/index.html`
+        ```html
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <title>Produto</title>
+        </head>
+        <body>
+
+            <h1>Produto</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="{% url 'index' %}">{{ produto.nome }}</a></td>
+                        <td>{{ produto.preco }}</td>
+                        <td>{{ produto.estoque }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </body>
+        </html>
+        ```
+
+    - Criar método `produto` em `core/views`
+        Retorna o produto para o template `core/templates/produto.html` com base no id passado como parâmetro
+        ```python
+        def produto(request, pk):
+        prod = Produto.objects.get(id=pk)
+
+        context = {
+            'produto': prod
+        }
+        return render(request, 'produto.html', context)
+        ```
+
     </p>
 
     </details>
