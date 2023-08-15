@@ -467,6 +467,175 @@ Linux
 
     ---
 
+10. <span style="color:383E42"><b>Arquivos estáticos no Django</b></span>
+    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <p>
+
+    - Configurar variáveis que contém caminho para pasta dos arquivos estáticos `django1/settings.py`
+        >BASE_DIR contém o caminho para pasta projeto
+        ```python
+        # Incluir 
+        import os
+        ...
+        ...
+        ...
+        # Static files (CSS, JavaScript, Images)
+        # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+        STATIC_URL = 'static/' # Usado durante o desenvolvimento
+        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Usado durante produção
+        ```
+    
+    - Criar diretório `static` e subdiretórios `js, css e images`
+
+    - Criar arquivo `core/static/css/estilos.css`
+        ```css
+        body{
+            background-color: aquamarine;
+            color: black;
+        }
+        ```
+
+    - Incluir referência para o arquivo de estilos em `core/templates/index.html`
+        >Não esquecer do `load static` antes do início do `html`
+        ```html
+        {% load static %}
+        ...
+        ...
+        <title>Django 1 - Index</title>
+
+            <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+        ...
+        ...
+        ...
+        ```
+
+    - Incluir imagem `core/static/images/django.png`
+        ```html
+        ...
+        ...
+        <body>
+            <h1>Index</h1>
+        <img src="{% static 'images/django.png' %}" alt="">
+        ```
+
+    - Incluir arquivo de script `core/static/js/script.js`
+        ```js
+        function teste(){
+            alert("Funciona Mesmo!");
+        }
+        ```
+
+    - Incluir botão que executa função `teste()` de `core/static/js/script.js`
+        ```html
+        ...
+        ...
+            <button onclick="teste();">Clique-me</button>
+
+            <script type="text/javascript" src="{% static `js/script.js` %}"></script>
+        </body>
+        ```
+
+    - Testar: Lembrar que funciona com variável `DEBUG` em `settings.py` como `True`, em desenvolvimento
+
+    - Incluir páginas de erros
+        Incluir código para retornar erro `404,500` ou página de erro `404, 500`
+        ```python
+        from django.shortcuts import render
+        from django.shortcuts import get_object_or_404
+
+        from django.http import HttpResponse
+        from django.template import loader
+
+        from .models import Produto
+
+
+        def index(request):
+            produtos = Produto.objects.all()
+
+            context = {
+                `curso`: `Programação Web com Django Framework`,
+                `outro`: `Django é massa!`,
+                `produtos`: produtos
+            }
+            return render(request, `index.html`, context)
+
+
+        def contato(request):
+            return render(request, `contato.html`)
+
+
+        def produto(request, pk):
+            # prod = Produto.objects.get(id=pk)
+            prod = get_object_or_404(Produto, id=pk)
+
+            context = {
+                `produto`: prod
+            }
+            return render(request, `produto.html`, context)
+
+
+        def error404(request, ex):
+            template = loader.get_template(`404.html`)
+            return HttpResponse(content=template.render(), content_type=`text/thml; charset=utf8`, status=404)
+
+
+        def error500(request):
+            template = loader.get_template(`500.html`)
+            return HttpResponse(content=template.render(), content_type=`text/html; charset=utf8`, status=500)
+        ```
+
+    - Incluir configuração para direcionamento para página de erros `views.error404, views.error404 ` em `django1/urls.py`
+        ```python
+        from django.contrib import admin
+        from django.urls import path, include
+
+        from django.conf.urls import handler404, handler500
+        from core import views
+
+        urlpatterns = [
+            path(`admin/`, admin.site.urls),
+            path(``, include(`core.urls`))
+        ]
+
+        handler404 = views.error404
+        handler500 = views.error500
+        ```
+
+    - Incluir template erro **500** `core/templates/500.html` com mensagem de erro
+        ```html
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>500</title>
+        </head>
+        <body>
+            <h1>Erro no Processamento</h1>
+            <h2>Erro 500</h2>
+        </body>
+        </html>
+        ```
+    - Incluir redirecionamento para página `index` em `django1/settings.py`
+        ```python
+        ...
+        ...
+        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Usado durante produção
+
+        LOGOUT_REDIRECT_URL = 'index'
+        ...
+        ...
+        ```
+    - Testar: Mudar variável `DEBUG` em `settings.py` para `False` e rodar o projeto e testar um link inválido
+
+
+    </p>
+
+    </details>
+
+    ---
+
 ## Meta
 ><span style="color:383E42"><b>Cristiano Mendonça Gueivara</b> </span>
 >
