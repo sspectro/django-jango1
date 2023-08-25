@@ -5,7 +5,7 @@
 >>Projeto desenvolvido no curso da Geek University - Udemy [Programação Web com Python e Django Framework: Essencial](https://www.udemy.com/course/programacao-web-com-django-framework-do-basico-ao-avancado/)
 
 ## Ambiente de Desenvolvimento
-Linux, Postgres
+Linux, Sqlite3
 
 ## Documentação
 - [DJango](https://www.djangoproject.com/)
