@@ -5,10 +5,13 @@
 >>Projeto desenvolvido no curso da Geek University - Udemy [Programação Web com Python e Django Framework: Essencial](https://www.udemy.com/course/programacao-web-com-django-framework-do-basico-ao-avancado/)
 
 ## Ambiente de Desenvolvimento
-Linux
+Linux, Postgres
+
+## Documentação
+- [DJango](https://www.djangoproject.com/)
 ## Desenvolvimento:
 1. <span style="color:383E42"><b>Preparando ambiente</b></span>
-    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
     <p>
 
     - Criar repositório no github
@@ -468,7 +471,7 @@ Linux
     ---
 
 10. <span style="color:383E42"><b>Arquivos estáticos no Django</b></span>
-    <!-- <details><summary><span style="color:Chocolate">Detalhes</span></summary> -->
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
     <p>
 
     - Configurar variáveis que contém caminho para pasta dos arquivos estáticos `django1/settings.py`
@@ -628,6 +631,19 @@ Linux
         ...
         ```
     - Testar: Mudar variável `DEBUG` em `settings.py` para `False` e rodar o projeto e testar um link inválido
+
+
+    </p>
+
+    </details>
+
+    ---
+
+## Deploy no Google App Engine:
+1. <span style="color:383E42"><b>Instalar a CLI gcloud [Link](https://cloud.google.com/sdk/docs/install?hl=pt-br)</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
 
 
     </p>
